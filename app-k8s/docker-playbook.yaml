@@ -2,8 +2,8 @@
   become: true
   tasks:
     - name: docker build
-      shell: sudo docker build -t ekininaal/deneme-app /tmp
+      shell: sudo docker build -t username/deneme-app /tmp
     - name: docker login
-      shell: sudo docker login -u="xxx" -p="xxx" docker.io
+      shell: sudo docker login -u="username" -p="passwd" docker.io
     - name: docker push
-      shell: sudo docker push ekininaal/deneme-app:latest
+      shell: sudo docker push username/deneme-app:latest

@@ -6,13 +6,15 @@
 #      shell: sudo docker login -u="ekininaal" -p="EK1311063--" docker.io
 #    - name: docker push
 #      shell: sudo docker push ekininaal/deneme-app:latest
-    - name: create deployment and svc
+    - name: apply secret yaml
+      shell: kubectl apply -f /tmp/app-secret.yaml
+    - name: apply deployment yaml
       shell: kubectl apply -f /tmp/app-deployment.yaml
-    - name: expose k8s deployment
-      shell: kubectl expose deployment/case --type="NodePort" --port 8080
-    - name: export node port
-      shell: sudo export NODE_PORT=$(kubectl get services/case -o go-template='{{( .spec.ports 0).nodePort}}')
-    - name: export node port2
-      shell: sudo export NODE_IP=$(kubectl get node -o wide | tail -n 1 | awk '{print $6}')
+#    - name: expose k8s deployment
+#      shell: kubectl expose deployment/case --type="NodePort" --port 80
+#    - name: export node port
+#      shell: sudo export NODE_PORT=$(kubectl get services/case -o go-template='{{( .spec.ports 0).nodePort}}')
+    - name: export IP port
+      shell: sudo export IP=$(kubectl get po -o wide | tail -n 1 | awk '{print $6}')
     - name: curl
       shell: sudo curl <NODE_IP>:$NODE_PORT

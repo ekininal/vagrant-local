@@ -22,18 +22,18 @@ spec:
                   name: app-secrets
                   key: MYSQL_PASSWORD
             - name: MYSQL_USERNAME
-              value: "master"
-#            - name: MYSQL_USERNAME
-#              valueFrom:
-#                secretKeyRef:
-#                  name: app-secrets
-#                  key: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MYSQL_USERNAME
             - name: MYSQL_INSTANCE_NAME
               value: "proje"
             - name: MYSQL_PORT_3306_TCP_ADDR
               value: "mysql"
             - name: MYSQL_PORT_3306_TCP_PORT
               value: "3306"
+#            - name: MYSQL_USERNAME
+#              value: "master"
 #            - name: MYSQL_PASSWORD
 #              value: "master1234"
           ports:
