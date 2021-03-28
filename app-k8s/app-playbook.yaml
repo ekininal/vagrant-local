@@ -1,19 +1,9 @@
 - hosts: all
   tasks:
-#    - name: docker build
-#      shell: sudo docker build -t ekininaal/deneme-app /tmp
-#    - name: docker login
-#      shell: sudo docker login -u="ekininaal" -p="EK1311063--" docker.io
-#    - name: docker push
-#      shell: sudo docker push ekininaal/deneme-app:latest
     - name: apply secret yaml
       shell: kubectl apply -f /tmp/app-secret.yaml
     - name: apply deployment yaml
       shell: kubectl apply -f /tmp/app-deployment.yaml
-#    - name: expose k8s deployment
-#      shell: kubectl expose deployment/case --type="NodePort" --port 80
-#    - name: export node port
-#      shell: sudo export NODE_PORT=$(kubectl get services/case -o go-template='{{( .spec.ports 0).nodePort}}')
     - name: export IP port
       shell: sudo export IP=$(kubectl get po -o wide | tail -n 1 | awk '{print $6}')
     - name: curl
