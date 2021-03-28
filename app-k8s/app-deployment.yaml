@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case
+spec:
+  selector:
+    matchLabels:
+      app: case
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: case
+    spec:
+      containers:
+        - name: case
+          image: ekininaal/deneme-app:latest
+          env:
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_USERNAME
+              value: "master"
+#            - name: MYSQL_USERNAME
+#              valueFrom:
+#                secretKeyRef:
+#                  name: app-secrets
+#                  key: MYSQL_USERNAME
+            - name: MYSQL_INSTANCE_NAME
+              value: "proje"
+            - name: MYSQL_PORT_3306_TCP_ADDR
+              value: "mysql"
+            - name: MYSQL_PORT_3306_TCP_PORT
+              value: "3306"
+#            - name: MYSQL_PASSWORD
+#              value: "master1234"
+          ports:
+            - containerPort: 3000

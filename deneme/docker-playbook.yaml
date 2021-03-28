@@ -1,0 +1,19 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: docker build
+      shell: sudo docker build -t ekininaal/deneme-app /tmp
+    - name: docker login
+      shell: sudo docker login -u="ekininaal" -p="EK1311063--" docker.io
+    - name: docker push
+      shell: sudo docker push ekininaal/deneme-app:latest
+#    - name: create deployment and svc
+#      shell: sudo kubectl apply -f /tmp/deployment.yaml
+#    - name: expose k8s deployment
+#      shell: sudo kubectl expose deployment/deneme --type="NodePort" --port 8080
+#    - name: export node port
+#      shell: sudo export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+#    - name: export node port2
+#      shell: sudo export NODE_IP=$(kubectl get node -o wide | tail -n 1 | awk '{print $6}')
+#    - name: curl
+#      shell: sudo curl <NODE_IP>:$NODE_PORT

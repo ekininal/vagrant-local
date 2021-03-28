@@ -17,19 +17,29 @@ spec:
         - image: mysql:5.7
           name: mysql
           env:
-#            - name: MYSQL_ROOT_PASSWORD
-#              valueFrom:
-#                secretKeyRef:
-#                  name: mysql-secrets
-#                  key: MYSQL_PASSWORD
             - name: MYSQL_ROOT_PASSWORD
-              value: "master1234"
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: MYSQL_USER
             - name: MYSQL_DATABASE
               value: "proje"
-            - name: MYSQL_USER
-              value: "projemaster"
-            - name: MYSQL_PASSWORD
-              value: "master1234"
+#            - name: MYSQL_ROOT_PASSWORD
+#              value: "master1234"
+#            - name: MYSQL_USER
+#              value: "projemaster"
+#            - name: MYSQL_PASSWORD
+#              value: "master1234"
           ports:
             - containerPort: 3306
               name: mysql

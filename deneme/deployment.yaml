@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deneme
+  labels:
+    app: deneme
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: deneme
+  template:
+    metadata:
+      labels:
+        app: deneme
+    spec:
+      nodeName: master
+      containers:
+        - name: deneme
+          image: ekininaal/deneme-app:latest
+          ports:
+            - containerPort: 80
