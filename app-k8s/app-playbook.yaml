@@ -1,10 +1,20 @@
 - hosts: all
   tasks:
-    - name: apply secret yaml
+    - name: deploy mysql secret
+      shell: kubectl apply -f /tmp/secret.yaml
+    - name: deploy mysql pv
+      shell: kubectl apply -f /tmp/pv.yaml
+    - name: deploy mysql pvc
+      shell: kubectl apply -f /tmp/pvc.yaml
+    - name: deploy mysql deployment
+      shell: kubectl apply -f /tmp/deployment.yaml
+    - name: deploy mysql service
+      shell: kubectl apply -f /tmp/service.yaml
+    - name: apply app secret yaml
       shell: kubectl apply -f /tmp/app-secret.yaml
-    - name: apply deployment yaml
+    - name: apply app deployment yaml
       shell: kubectl apply -f /tmp/app-deployment.yaml
     - name: export IP port
-      shell: sudo export IP=$(kubectl get po -o wide | tail -n 1 | awk '{print $6}')
+      shell: sudo export NODE_IP=$(kubectl get pod -o wide | awk '{print $6}' | sed -n '2p')
     - name: curl
-      shell: sudo curl <NODE_IP>:$NODE_PORT
+      shell: sudo curl <NODE_IP>:3000
